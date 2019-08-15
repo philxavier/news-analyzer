@@ -12,7 +12,7 @@ const getArticlesQuery = gql`
   }
 `;
 
-const getTags = gql`
+const getTagsQuery = gql`
   {
     tags {
       name
@@ -21,4 +21,4 @@ const getTags = gql`
   }
 `;
 
-export { getArticlesQuery, getTags };
+export { getArticlesQuery, getTagsQuery };

@@ -61,7 +61,6 @@ const RootQuery = new GraphQLObjectType({
     articles: {
       type: new GraphQLList(ArticleType),
       resolve(parent, args) {
-        console.log(parent);
         return Article.find({});
       }
     },

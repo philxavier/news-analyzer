@@ -4,7 +4,7 @@ body {
 
 #chart-wrapper {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 .input-button-wrapper {
