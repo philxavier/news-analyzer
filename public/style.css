@@ -1,0 +1,12 @@
+body {
+  background: rgb(47, 47, 78);
+}
+
+#chart-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.input-button-wrapper {
+  padding-top: 5%;
+}

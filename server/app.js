@@ -1,27 +1,72 @@
-let express = require("express");
-var app = express();
-var PORT = 3002;
-let db = require("../mongodb/index.js");
-const buildArticle = require("../articleParser.js").buildArticle;
-let articleModel = require("../mongodb/index").articleModel;
+const express = require("express");
+const app = express();
+const PORT = 3002;
+const db = require("../mongodb/index.js");
+const cors = require("cors");
+const graphqlHTTP = require("express-graphql");
+// let articleLinks = require("../articleParser.js").articleLinks;
+const articleModel = require("./models/article");
+var schema = require("./schema/schema.js");
+
+app.use(cors());
+
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    schema,
+    //HERE WE HAVE TO PASS A SCHEMA FOR OUR FUNCTION. THE SCHEMA WILL BE CREATED IN THE SCHEMA.JS FILE
+    graphiql: true
+  })
+);
 
 app.listen(PORT, err => {
   if (err) {
     console.log("there was an error connecting to server", err);
   }
-  console.log("CONNECTION TO SERVER SUCCESSFULL!!");
-  buildArticle().then(res => {
-    var newArticle = new articleModel({
-      summary: res.summary,
-      sentiment: res.sentiment[0].sentiment,
-      tags: res.tags,
-      fullText: res.sentiment[0].document,
-      date: res.date,
-      title: res.articleTitle
+  console.log("CONNECTION TO SERVER SUCCESSFULL ON PORT", PORT);
+  // var test = createArrayOfLinks;
+  // console.log(test);
+});
+
+app.use(express.static("public"));
+
+app.get("/getArticles", err => {
+  // if (err) {
+  //   console.log("there was an error", err);
+  // } else {
+  //   createArrayOfLinks
+  //     .then(res => {
+  //       console.log("this is the response", res);
+  //     })
+  //     .catch(err => {
+  //       console.log("there was an error", err);
+  //     });
+  //   var newArticle = new articleModel({
+  //     url: articleLinks[i],
+  //     summary: res.summary,
+  //     sentiment: res.sentiment[0].sentiment,
+  //     tags: res.tags,
+  //     fullText: res.sentiment[0].document,
+  //     date: res.date,
+  //     title: res.articleTitle
+  //   newArticle.save((err, res) => {
+  //     if (err) console.log("there was an error saving record", err);
+  //     else console.log("saved record successfully", res);
+  //   });
+  // })
+  // .catch(err => {
+  //   console.log("there was an error", err);
+  // });
+  //}
+});
+
+app.get("/articles", (req, res) => {
+  articleModel
+    .find({})
+    .then(articles => {
+      res.send(articles);
+    })
+    .catch(err => {
+      console.log("there was an error retrieving the data", err);
     });
-    newArticle.save((err, res) => {
-      if (err) console.log("there was an error saving record", err);
-      else console.log("saved record successfully", res);
-    });
-  });
 });

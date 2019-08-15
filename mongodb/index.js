@@ -14,22 +14,10 @@ mongoose.connect(
   }
 );
 
-var Schema = mongoose.Schema;
-
-var articleSchema = new Schema({
-  fullText: String,
-  summary: String,
-  sentiment: Array,
-  tags: [],
-  date: Date,
-  title: String
-});
-
-var articleModel = mongoose.model("Article", articleSchema);
+mongoose.set("useFindAndModify", false);
 
 let db = mongoose.connection;
 
 module.exports = {
-  db,
-  articleModel
+  db
 };
