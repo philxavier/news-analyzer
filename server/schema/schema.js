@@ -68,7 +68,39 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(TagType),
       // args: { url: { type: GraphQLString } },
       resolve(parent, args) {
-        return Tags.find({});
+        return Tags.aggregate([
+          {
+            $project: {
+              name: 1,
+              urls: 1,
+              length: { $size: "$urls" }
+            }
+          },
+          { $sort: { length: -1 } },
+          { $limit: 5 }
+        ])
+          .then(res => {
+            return res;
+          })
+          .catch(err => {
+            console.log("there was an error fetching data", err);
+          });
+      }
+    },
+    top3: {
+      type: new GraphQLList(ArticleType),
+      resolve(parent, args) {
+        return Article.find({})
+          .sort({ finalSentiment: -1 })
+          .limit(3);
+      }
+    },
+    worst3: {
+      type: new GraphQLList(ArticleType),
+      resolve(parent, args) {
+        return Article.find({})
+          .sort({ finalSentiment: 1 })
+          .limit(3);
       }
     }
   }

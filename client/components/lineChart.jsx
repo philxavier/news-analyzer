@@ -37,7 +37,6 @@ class lineChart extends Component {
         summaries.push(ele.summary);
         return ele;
       });
-    console.log(summaries);
 
     this.setState({
       urls: urls,
@@ -47,8 +46,8 @@ class lineChart extends Component {
           {
             label: "CNN",
             fill: false,
-            backgroundColor: "rgb(39, 189, 221)",
-            borderColor: "rgb(39, 189, 221)",
+            backgroundColor: "teal",
+            borderColor: "teal",
             data: ratings,
             articleTitles: titles,
             summaries: summaries
@@ -69,22 +68,22 @@ class lineChart extends Component {
             {
               ticks: {
                 beginAtZero: true,
-                fontColor: "white"
+                fontColor: "teal"
               },
               gridLines: {
                 display: false,
-                color: "white"
+                color: "teal"
               }
             }
           ],
           xAxes: [
             {
               ticks: {
-                fontColor: "white"
+                fontColor: "teal"
               },
               gridLines: {
                 display: false,
-                color: "white"
+                color: "teal"
               }
             }
           ]
@@ -127,7 +126,7 @@ class lineChart extends Component {
 
   render() {
     return (
-      <div className="chart" style={{ height: "500px", width: "700px" }}>
+      <div className="chart" style={{ height: "400px", width: "600px" }}>
         <Line
           data={this.state.chartData}
           getElementAtEvent={e => {

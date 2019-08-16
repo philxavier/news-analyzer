@@ -21,4 +21,24 @@ const getTagsQuery = gql`
   }
 `;
 
-export { getArticlesQuery, getTagsQuery };
+const getTop3Query = gql`
+  query {
+    top3 {
+      id
+      finalSentiment
+      articleTitle
+      url
+    }
+  }
+`;
+const getWorst3Query = gql`
+  {
+    worst3 {
+      id
+      finalSentiment
+      url
+      articleTitle
+    }
+  }
+`;
+export { getArticlesQuery, getTagsQuery, getTop3Query, getWorst3Query };

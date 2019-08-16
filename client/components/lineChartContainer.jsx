@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { graphql } from "react-apollo";
 import LineChart from "./lineChart";
-import InputButton from "./InputButton";
 import { Spinner } from "react-bootstrap";
 import { getArticlesQuery } from "../queries/queries";
 
@@ -29,13 +28,7 @@ class lineChartContainer extends Component {
   }
 
   render() {
-    console.log(this.props);
-    return (
-      <div>
-        <InputButton />
-        {this.displaydata()}
-      </div>
-    );
+    return <div>{this.displaydata()}</div>;
   }
 }
 
