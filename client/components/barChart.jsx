@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Bar } from "react-chartjs-2";
+import { Bar, HorizontalBar } from "react-chartjs-2";
 
 export default class barChart extends Component {
   constructor(props) {
@@ -33,25 +33,32 @@ export default class barChart extends Component {
         ]
       },
       options: {
+        maintainAspectRation: false,
         responsive: true,
         scales: {
           yAxes: [
             {
               display: true,
               ticks: {
+                fontColor: "lightgray",
+
                 beginAtZero: true,
                 min: 0
               },
+
               gridLines: {
-                display: false,
-                color: "teal"
+                borderDash: [3, 3],
+                display: true,
+                color: "lightgray"
               }
             }
           ],
           xAxes: [
             {
+              barThickness: 40,
+
               ticks: {
-                fontColor: "teal"
+                fontColor: "lightgray"
               },
               gridLines: {
                 display: false,
@@ -66,12 +73,14 @@ export default class barChart extends Component {
 
   render() {
     return (
-      <div>
+      <div className="barChart" style={{ height: "420px", width: "356px" }}>
+        <h2>Most Frequent Tags</h2>
+        <p>what are the key words</p>
         <Bar
           data={this.state.chartData}
-          width={550}
-          height={300}
           options={this.state.options}
+          width={120}
+          height={115}
         />
       </div>
     );

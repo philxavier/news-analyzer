@@ -1,5 +1,22 @@
 body {
-  background: rgb(47, 47, 78);
+  background: #f7f7f8;
+}
+
+.main {
+  display: "flex";
+  margin: 0 auto;
+}
+
+.barChart {
+  background: white;
+  border: lightgray 1px solid;
+  padding: 3%;
+}
+
+.chart {
+  background: white;
+  border: lightgray 1px solid;
+  padding: 3%;
 }
 
 #chart-wrapper {
@@ -49,7 +66,6 @@ body {
   white-space: "nowrap";
 }
 
-/* .statistic-wrapper {
-  border: 1px solid teal;
-  border-radius: 100%;
-} */
+.statistic-wrapper {
+  margin: 0 auto;
+}

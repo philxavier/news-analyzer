@@ -13,8 +13,15 @@ class barChartContainer extends Component {
   displaydata() {
     if (this.props.data.loading) {
       return (
-        <div style={{ margin: "0 auto" }}>
-          <Spinner animation="border" variant="light" role="status">
+        <div
+          style={{
+            height: "420px",
+            width: "356px",
+            display: "flex",
+            justifyContent: "center"
+          }}
+        >
+          <Spinner animation="border" role="status">
             <span className="sr-only">Loading...</span>
           </Spinner>
         </div>

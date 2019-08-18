@@ -68,18 +68,19 @@ class lineChart extends Component {
             {
               ticks: {
                 beginAtZero: true,
-                fontColor: "teal"
+                fontColor: "lightgray"
               },
               gridLines: {
-                display: false,
-                color: "teal"
+                borderDash: [3, 3],
+                display: true,
+                color: "lightgray"
               }
             }
           ],
           xAxes: [
             {
               ticks: {
-                fontColor: "teal"
+                fontColor: "lightgray"
               },
               gridLines: {
                 display: false,
@@ -126,7 +127,9 @@ class lineChart extends Component {
 
   render() {
     return (
-      <div className="chart" style={{ height: "400px", width: "600px" }}>
+      <div className="chart" style={{ height: " 420px", width: "700px" }}>
+        <h2>Evaluation x Time</h2>
+        <p>Numbers oscillate from -1 to 1</p>
         <Line
           data={this.state.chartData}
           getElementAtEvent={e => {

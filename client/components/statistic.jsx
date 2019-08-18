@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { graphql } from "react-apollo";
 import { getArticlesQuery } from "../queries/queries";
 import { Spinner } from "react-bootstrap";
-import { Statistic } from "semantic-ui-react";
+import { Statistic, Card, Icon } from "semantic-ui-react";
 
 class statistic extends Component {
   constructor(props) {
@@ -11,7 +11,6 @@ class statistic extends Component {
 
   displayData() {
     var data = this.props.data;
-    console.log("data here", data);
     if (data.loading) {
       return (
         <div style={{ margin: "0 auto" }}>
@@ -30,14 +29,23 @@ class statistic extends Component {
       average = (average / data.articles.length).toFixed(2);
 
       return (
-        <div className="statistic-wrapper">
-          <Statistic color="teal">
-            <Statistic.Value>{average}</Statistic.Value>
-            <span style={{ color: "teal", fontWeight: "bold" }}>
-              <Statistic.Label>Evaluation Average</Statistic.Label>
-            </span>
-          </Statistic>
-        </div>
+        <Card>
+          <Card.Content textAlign="center">
+            <Card.Header>Average Evaluation</Card.Header>
+            <Card.Description>The average evaluation is...</Card.Description>
+            <div className="statistic-wrapper">
+              <Statistic color="teal">
+                <Statistic.Value>{average}</Statistic.Value>
+              </Statistic>
+            </div>
+          </Card.Content>
+          <Card.Content extra>
+            <a>
+              <Icon name="newspaper outline" />
+              {data.articles.length} Articles
+            </a>
+          </Card.Content>
+        </Card>
       );
     }
   }
