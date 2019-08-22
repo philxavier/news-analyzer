@@ -15,8 +15,6 @@ class barChartContainer extends Component {
       return (
         <div
           style={{
-            height: "420px",
-            width: "356px",
             display: "flex",
             justifyContent: "center"
           }}

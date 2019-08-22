@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { graphql } from "react-apollo";
 import LineChart from "./lineChart";
 import { Spinner } from "react-bootstrap";
-import { getArticlesQuery } from "../queries/queries";
+import { getArticlesQuery, getTagsQuery } from "../queries/queries";
 
 class lineChartContainer extends Component {
   constructor(props) {
@@ -33,3 +33,8 @@ class lineChartContainer extends Component {
 }
 
 export default graphql(getArticlesQuery)(lineChartContainer);
+
+// export default compose(
+//   graphql(getArticlesQuery, { name: "getArticlesQuery" }),
+//   graphql(addArticlesMutation, { name: "addArticlesMutation" })
+// )(MenuTopContainer);

@@ -6,16 +6,21 @@ import { Spinner } from "react-bootstrap";
 
 class Top3CardContainer extends Component {
   displayData() {
-    console.log(this.props.data);
     if (this.props.data.loading) {
       return (
-        <div style={{ margin: "0 auto" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center"
+          }}
+        >
           <Spinner animation="border" role="status">
             <span className="sr-only">Loading...</span>
           </Spinner>
         </div>
       );
     } else {
+      //get url pass to the component and call get queries in the component;
       return (
         <div>
           <div>

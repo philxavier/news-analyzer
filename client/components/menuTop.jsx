@@ -1,8 +1,66 @@
 import React, { Component } from "react";
-import { Input, Menu, Header } from "semantic-ui-react";
+import { addArticlesMutation, getArticlesQuery } from "../queries/queries";
+import { graphql, Mutation } from "react-apollo";
+import { flowRight as compose } from "lodash";
+import { Menu, Header, Loader, Input } from "semantic-ui-react";
 
 class MenuTop extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchTerm: ""
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    // <Mutation mutation={ADD_TODO}>
+    //   {(mutation, { data }) => (
+    //     <div>
+    //       <form
+    //         onSubmit={e => {
+    //           e.preventDefault();
+    //           mutation({ variables: { type: input.value } });
+    //           input.value = "";
+    //         }}
+    //       >
+    //         <input
+    //           ref={node => {
+    //             input = node;
+    //           }}
+    //         />
+    //         <button type="submit">Add Todo</button>
+    //       </form>
+    //     </div>
+    //   )}
+    // </Mutation>;
+
+    var url = this.state.searchTerm;
+    this.props
+      .addArticlesMutation({
+        variables: {
+          url: url
+        },
+        refetchQueries: [{ query: getArticlesQuery }]
+      })
+      .then(() => {
+        console.log("uouuuuuuuuuuuu");
+        this.setState({
+          searchTerm: ""
+        });
+      });
+  }
+
+  handleChange(e) {
+    var url = e.target.value;
+    console.log(url);
+    this.setState({
+      searchTerm: url
+    });
+  }
+
   render() {
+    console.log(this.props);
     return (
       <Menu>
         <div style={{ top: "50%", marginTop: "5px" }}>
@@ -20,14 +78,28 @@ class MenuTop extends Component {
         </div>
 
         <Menu.Item position="right">
-          <Input
-            action={{ type: "submit", content: "Add Article" }}
-            placeholder="Insert Article URL"
-          />
+          {this.props.addArticlesMutationResult.loading ? (
+            "hello there"
+          ) : (
+            <Input
+              value={this.state.searchTerm}
+              action={{
+                onClick: this.handleClick,
+                content: "Add Article"
+              }}
+              placeholder="insert URL"
+              onChange={e => {
+                this.handleChange(e);
+              }}
+            />
+          )}
         </Menu.Item>
       </Menu>
     );
   }
 }
 
-export default MenuTop;
+export default compose(
+  graphql(getArticlesQuery, { name: "getArticlesQuery" }),
+  graphql(addArticlesMutation, { name: "addArticlesMutation" })
+)(MenuTop);

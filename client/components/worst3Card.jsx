@@ -13,19 +13,39 @@ class worst3Card extends Component {
 
   componentDidMount() {
     var data = this.props.data;
-    this.setState({
-      ratings: [
-        Number(data.worst3[0].finalSentiment).toFixed(2),
-        Number(data.worst3[1].finalSentiment).toFixed(2),
-        Number(data.worst3[2].finalSentiment).toFixed(2)
-      ],
-      articleTitles: [
-        data.worst3[0].articleTitle,
-        data.worst3[1].articleTitle,
-        data.worst3[2].articleTitle
-      ],
-      urls: [data.worst3[0].url, data.worst3[1].url, data.worst3[2].url]
-    });
+    if (data.worst3.length === 1) {
+      this.setState({
+        ratings: [Number(data.worst3[0].finalSentiment).toFixed(2)],
+        articleTitles: [data.worst3[0].articleTitle],
+        urls: [data.worst3[0].url]
+      });
+    } else if (data.worst3.length === 2) {
+      this.setState({
+        ratings: [
+          Number(data.worst3[0].finalSentiment).toFixed(2),
+          Number(data.worst3[1].finalSentiment).toFixed(2)
+        ],
+        articleTitles: [
+          data.worst3[0].articleTitle,
+          data.worst3[1].articleTitle
+        ],
+        urls: [data.worst3[0].url, data.worst3[1].url]
+      });
+    } else if (data.worst3.length === 3) {
+      this.setState({
+        ratings: [
+          Number(data.worst3[0].finalSentiment).toFixed(2),
+          Number(data.worst3[1].finalSentiment).toFixed(2),
+          Number(data.worst3[2].finalSentiment).toFixed(2)
+        ],
+        articleTitles: [
+          data.worst3[0].articleTitle,
+          data.worst3[1].articleTitle,
+          data.worst3[2].articleTitle
+        ],
+        urls: [data.worst3[0].url, data.worst3[1].url, data.worst3[2].url]
+      });
+    }
   }
 
   render() {

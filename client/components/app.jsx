@@ -9,6 +9,8 @@ import Statistic from "./statistic";
 import { Grid } from "semantic-ui-react";
 import Worst3CardContainer from "./worst3CardContainer";
 import MenuTop from "./menuTop";
+import MenuTop2 from "./menuTop2";
+import MenuTopContainer from "./menuTopContainer";
 
 const client = new ApolloClient({
   uri: "http://localhost:3002/graphql"
@@ -22,7 +24,7 @@ export default class app extends Component {
           {/* <div className="input-button-container">
             <InputButton />
           </div> */}
-          <MenuTop />
+          <MenuTopContainer />
 
           <Grid centered>
             <Grid.Row columns={2}>

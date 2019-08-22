@@ -13,19 +13,46 @@ class Top3Card extends Component {
 
   componentDidMount() {
     var data = this.props.data;
-    this.setState({
-      ratings: [
-        Number(data.top3[0].finalSentiment).toFixed(2),
-        Number(data.top3[1].finalSentiment).toFixed(2),
-        Number(data.top3[2].finalSentiment).toFixed(2)
-      ],
-      articleTitles: [
-        data.top3[0].articleTitle,
-        data.top3[1].articleTitle,
-        data.top3[2].articleTitle
-      ],
-      urls: [data.top3[0].url, data.top3[1].url, data.top3[2].url]
+    console.log("data", data);
+    var urls = [];
+    data.top3.forEach(ele => {
+      urls.push(ele.url);
     });
+
+    console.log(urls);
+
+    console.log("this is data.top3", data.top3);
+
+    if (data.top3.length === 1) {
+      this.setState({
+        ratings: [Number(data.top3[0].finalSentiment).toFixed(2)],
+        articleTitles: [data.top3[0].articleTitle],
+        urls: [data.top3[0].url]
+      });
+    } else if (data.top3.length === 2) {
+      this.setState({
+        ratings: [
+          Number(data.top3[0].finalSentiment).toFixed(2),
+          Number(data.top3[1].finalSentiment).toFixed(2)
+        ],
+        articleTitles: [data.top3[0].articleTitle, data.top3[1].articleTitle],
+        urls: [data.top3[0].url, data.top3[1].url]
+      });
+    } else if (data.top3.length === 3) {
+      this.setState({
+        ratings: [
+          Number(data.top3[0].finalSentiment).toFixed(2),
+          Number(data.top3[1].finalSentiment).toFixed(2),
+          Number(data.top3[2].finalSentiment).toFixed(2)
+        ],
+        articleTitles: [
+          data.top3[0].articleTitle,
+          data.top3[1].articleTitle,
+          data.top3[2].articleTitle
+        ],
+        urls: [data.top3[0].url, data.top3[1].url, data.top3[2].url]
+      });
+    }
   }
 
   render() {

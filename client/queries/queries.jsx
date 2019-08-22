@@ -41,4 +41,18 @@ const getWorst3Query = gql`
     }
   }
 `;
-export { getArticlesQuery, getTagsQuery, getTop3Query, getWorst3Query };
+
+const addArticlesMutation = gql`
+  mutation($url: String!) {
+    addArticle(url: $url) {
+      url
+    }
+  }
+`;
+export {
+  getArticlesQuery,
+  getTagsQuery,
+  getTop3Query,
+  getWorst3Query,
+  addArticlesMutation
+};
