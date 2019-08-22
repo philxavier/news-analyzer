@@ -1,0 +1,58 @@
+import React, { Component } from "react";
+import { graphql } from "react-apollo";
+import { getArticlesQuery } from "../queries/queries";
+import { Spinner } from "react-bootstrap";
+import { Statistic, Card, Icon } from "semantic-ui-react";
+
+class statistic extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  displayData() {
+    var data = this.props.data;
+    if (data.loading) {
+      return (
+        <div style={{ margin: "0 auto" }}>
+          <Spinner animation="border" variant="light" role="status">
+            <span className="sr-only">Loading...</span>
+          </Spinner>
+        </div>
+      );
+    } else {
+      var average = data.articles.reduce((accum, ele) => {
+        var num = Number(ele.finalSentiment);
+        accum += num;
+        return accum;
+      }, 0);
+
+      average = (average / data.articles.length).toFixed(2);
+
+      return (
+        <Card>
+          <Card.Content textAlign="center">
+            <Card.Header>Average Evaluation</Card.Header>
+            <Card.Description>The average evaluation is...</Card.Description>
+            <div className="statistic-wrapper">
+              <Statistic color="teal">
+                <Statistic.Value>{average}</Statistic.Value>
+              </Statistic>
+            </div>
+          </Card.Content>
+          <Card.Content extra>
+            <a>
+              <Icon name="newspaper outline" />
+              {data.articles.length} Articles
+            </a>
+          </Card.Content>
+        </Card>
+      );
+    }
+  }
+
+  render() {
+    return this.displayData();
+  }
+}
+
+export default graphql(getArticlesQuery)(statistic);

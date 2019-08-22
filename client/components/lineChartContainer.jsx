@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { graphql } from "react-apollo";
 import LineChart from "./lineChart";
-import InputButton from "./InputButton";
 import { Spinner } from "react-bootstrap";
-import { getArticlesQuery } from "../queries/queries";
+import { getArticlesQuery, getTagsQuery } from "../queries/queries";
 
 class lineChartContainer extends Component {
   constructor(props) {
@@ -14,7 +13,7 @@ class lineChartContainer extends Component {
     if (this.props.data.loading) {
       return (
         <div style={{ margin: "0 auto" }}>
-          <Spinner animation="border" variant="light" role="status">
+          <Spinner animation="border" role="status">
             <span className="sr-only">Loading...</span>
           </Spinner>
         </div>
@@ -29,14 +28,13 @@ class lineChartContainer extends Component {
   }
 
   render() {
-    console.log(this.props);
-    return (
-      <div>
-        <InputButton />
-        {this.displaydata()}
-      </div>
-    );
+    return <div>{this.displaydata()}</div>;
   }
 }
 
 export default graphql(getArticlesQuery)(lineChartContainer);
+
+// export default compose(
+//   graphql(getArticlesQuery, { name: "getArticlesQuery" }),
+//   graphql(addArticlesMutation, { name: "addArticlesMutation" })
+// )(MenuTopContainer);

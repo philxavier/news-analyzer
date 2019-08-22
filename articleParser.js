@@ -4,8 +4,6 @@ const AlgorithmiaConfig = require("./algorithmia.config");
 const articleModel = require("./server/models/article.js");
 const tagModel = require("./server/models/tag.js");
 const FixDate = require("./HelperFuncs").fixDate;
-const cheerio = require("cheerio");
-var db = require("./mongodb/index.js");
 
 var articleLinks2 = [
   "https://www.cnn.com/2019/08/06/us/brazilian-inmate-death-trnd/index.html",
@@ -201,7 +199,15 @@ const buildArticle = async url => {
   console.log();
 
   let { articleTitle, date } = articleInfo;
-  var obj = { summary, finalSentiment, fullText, tags, articleTitle, date };
+  var obj = {
+    url,
+    summary,
+    finalSentiment,
+    fullText,
+    tags,
+    articleTitle,
+    date
+  };
   return obj;
 };
 
@@ -267,5 +273,7 @@ var saveToDatabase = () => {
 
 module.exports = {
   // createArrayOfLinks,
+  buildArticle,
+  getText2,
   articleLinks2
 };

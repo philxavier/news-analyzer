@@ -1,12 +1,71 @@
 body {
-  background: rgb(47, 47, 78);
+  background: #f7f7f8;
+}
+
+.main {
+  display: "flex";
+  margin: 0 auto;
+}
+
+.barChart {
+  background: white;
+  border: lightgray 1px solid;
+  padding: 3%;
+}
+
+.chart {
+  background: white;
+  border: lightgray 1px solid;
+  padding: 3%;
 }
 
 #chart-wrapper {
   display: flex;
   justify-content: space-evenly;
+  /* background: red; */
+  height: 21em;
 }
 
 .input-button-wrapper {
-  padding-top: 5%;
+  padding-top: 3%;
+  width: 40%;
+}
+
+.input-button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.stats-container {
+  display: flex;
+  justify-content: space-evenly;
+  /* background: green; */
+  padding-top: 3%;
+}
+
+.header-container {
+  display: flex;
+  justify-content: center;
+}
+
+.top3-wrapper {
+  max-width: 20%;
+}
+
+.worst3-wrapper {
+  width: 20%;
+  overflow: hidden;
+}
+
+.table {
+  max-width: 500px;
+  overflow: hidden;
+  color: white;
+  overflow: "hidden";
+  text-overflow: "ellipsis";
+  white-space: "nowrap";
+}
+
+.statistic-wrapper {
+  margin: 0 auto;
 }

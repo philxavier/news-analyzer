@@ -1,18 +1,16 @@
 var graphql = require("graphql");
+const getText2 = require("../../articleParser").getText2;
+const buildArticle = require("../../articleParser").buildArticle;
 const Article = require("../models/article.js");
 const Tags = require("../models/tag.js");
-const {
-  GraphQLDate,
-  GraphQLTime,
-  GraphQLDateTime
-} = require("graphql-iso-date");
+
+const { GraphQLDate } = require("graphql-iso-date");
 
 const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLSchema,
   GraphQLID,
-  GraphQLInt,
   GraphQLList,
   GraphQLNonNull
 } = graphql;
@@ -68,50 +66,89 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(TagType),
       // args: { url: { type: GraphQLString } },
       resolve(parent, args) {
-        return Tags.find({});
+        return Tags.aggregate([
+          {
+            $project: {
+              name: 1,
+              urls: 1,
+              length: { $size: "$urls" }
+            }
+          },
+          { $sort: { length: -1 } },
+          { $limit: 5 }
+        ])
+          .then(res => {
+            return res;
+          })
+          .catch(err => {
+            console.log("there was an error fetching data", err);
+          });
+      }
+    },
+    top3: {
+      type: new GraphQLList(ArticleType),
+      resolve(parent, args) {
+        return Article.find({})
+          .sort({ finalSentiment: -1 })
+          .limit(3);
+      }
+    },
+    worst3: {
+      type: new GraphQLList(ArticleType),
+      resolve(parent, args) {
+        return Article.find({})
+          .sort({ finalSentiment: 1 })
+          .limit(3);
       }
     }
   }
 });
 
-// const Mutation = new GraphQLObjectType({
-//   name: "Mutation",
-//   fields: {
-//     add: {
-//       type: AuthorType,
-//       args: {
-//         name: { type: new GraphQLNonNull(GraphQLString) },
-//         age: { type: new GraphQLNonNull(GraphQLInt) }
-//       },
-//       resolve(parent, args) {
-//         let author = new Author({
-//           name: args.name,
-//           age: args.age
-//         });
-//         return author.save();
-//       }
-//     },
-//     addBook: {
-//       type: BookType,
-//       args: {
-//         name: { type: new GraphQLNonNull(GraphQLString) },
-//         genre: { type: new GraphQLNonNull(GraphQLString) },
-//         authorId: { type: new GraphQLNonNull(GraphQLID) }
-//       },
-//       resolve(parent, args) {
-//         let book = new Book({
-//           name: args.name,
-//           genre: args.genre,
-//           authorId: args.authorId
-//         });
-//         return book.save();
-//       }
-//     }
-//   }
-// });
+const Mutation = new GraphQLObjectType({
+  name: "Mutation",
+  fields: {
+    addArticle: {
+      type: ArticleType,
+      args: {
+        url: { type: new GraphQLNonNull(GraphQLString) }
+      },
+      resolve(parent, args) {
+        buildArticle(args.url).then(res => {
+          console.log("this is res", res);
+          return Article.create(res, err => {
+            if (err) {
+              console.log("there was an error in articles", err);
+            } else {
+              var hold = [];
+              for (let j = 0; j < res.tags.length; j++) {
+                hold.push({ name: res.tags[j], url: args.url });
+              }
+
+              for (let i = 0; i < hold.length; i++) {
+                Tags.update(
+                  { name: hold[i].name },
+                  { $push: { urls: hold[i].url } },
+                  { upsert: true, setDefaultsOnInsert: true },
+                  (err, response) => {
+                    if (err) {
+                      console.log("there was an error in tags", err);
+                    } else {
+                      console.log("found the thing", response);
+                    }
+                  }
+                );
+              }
+            }
+          });
+        });
+      }
+    }
+  }
+});
 
 var schema = new GraphQLSchema({
-  query: RootQuery
+  query: RootQuery,
+  mutation: Mutation
 });
 
 module.exports = schema;

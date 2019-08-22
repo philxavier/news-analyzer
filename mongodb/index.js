@@ -1,18 +1,13 @@
 var mongoose = require("mongoose");
 
-mongoose.connect(
-  "mongodb://localhost:27017/news-analyzer",
-  {
-    useNewUrlParser: true
-  },
-  err => {
-    if (err) {
-      console.log("there was an error in mongoose", err);
-    } else {
-      console.log("CONNECTED TO MONGO");
-    }
-  }
-);
+mongoose
+  .connect(process.env.MONGO_URI, { dbName: "news-analyzer" })
+  .then(() => {
+    console.log("connected to mongo db!");
+  })
+  .catch(err => {
+    console.log("could not connect to mongo", err);
+  });
 
 mongoose.set("useFindAndModify", false);
 
