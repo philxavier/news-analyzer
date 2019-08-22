@@ -1,7 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
-import { addArticlesMutation, getArticlesQuery } from "../queries/queries";
-import { graphql, Mutation } from "react-apollo";
-import { flowRight as compose } from "lodash";
+import React, { useState } from "react";
 import { Menu, Header, Loader, Input } from "semantic-ui-react";
 
 const MenuTop2 = props => {

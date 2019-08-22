@@ -1,3 +1,5 @@
+let webpack = require("webpack");
+
 module.exports = {
   entry: "./client/index.jsx",
   module: {
@@ -28,5 +30,10 @@ module.exports = {
   output: {
     path: `${__dirname}/public`,
     filename: "bundle.js"
-  }
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      NODE_ENV: "'production'"
+    })
+  ]
 };

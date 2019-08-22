@@ -1,7 +1,11 @@
 var mongoose = require("mongoose");
+// process.env.MONGO_URI
 
 mongoose
-  .connect(process.env.MONGO_URI, { dbName: "news-analyzer" })
+  .connect(
+    "mongodb+srv://fsxl:Secreta1@cluster0-vmxgf.mongodb.net/test?retryWrites=true&w=majority",
+    { dbName: "news-analyzer", useNewUrlParser: true }
+  )
   .then(() => {
     console.log("connected to mongo db!");
   })

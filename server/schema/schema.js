@@ -1,5 +1,4 @@
 var graphql = require("graphql");
-const getText2 = require("../../articleParser").getText2;
 const buildArticle = require("../../articleParser").buildArticle;
 const Article = require("../models/article.js");
 const Tags = require("../models/tag.js");

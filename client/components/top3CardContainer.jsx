@@ -2,7 +2,7 @@ import { getTop3Query } from "../queries/queries";
 import { graphql } from "react-apollo";
 import React, { Component } from "react";
 import Top3Card from "./top3Card";
-import { Spinner } from "react-bootstrap";
+import { Loader } from "semantic-ui-react";
 
 class Top3CardContainer extends Component {
   displayData() {
@@ -14,9 +14,7 @@ class Top3CardContainer extends Component {
             justifyContent: "center"
           }}
         >
-          <Spinner animation="border" role="status">
-            <span className="sr-only">Loading...</span>
-          </Spinner>
+          <Loader inverted>Loading</Loader>
         </div>
       );
     } else {

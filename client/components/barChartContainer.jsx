@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { graphql } from "react-apollo";
 import { getTagsQuery } from "../queries/queries";
-import { Spinner } from "react-bootstrap";
+import { Loader } from "semantic-ui-react";
 import BarChart from "./barChart";
 
 class barChartContainer extends Component {
@@ -19,9 +19,7 @@ class barChartContainer extends Component {
             justifyContent: "center"
           }}
         >
-          <Spinner animation="border" role="status">
-            <span className="sr-only">Loading...</span>
-          </Spinner>
+          <Loader inverted>Loading</Loader>
         </div>
       );
     } else {

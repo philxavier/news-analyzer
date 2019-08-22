@@ -3,13 +3,10 @@ import LineChartContainer from "./lineChartContainer";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
 import BarChartContainer from "./barChartContainer";
-import InputButton from "./InputButton";
 import Top3CardContainer from "./top3CardContainer";
 import Statistic from "./statistic";
 import { Grid } from "semantic-ui-react";
 import Worst3CardContainer from "./worst3CardContainer";
-import MenuTop from "./menuTop";
-import MenuTop2 from "./menuTop2";
 import MenuTopContainer from "./menuTopContainer";
 
 const client = new ApolloClient({

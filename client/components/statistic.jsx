@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { graphql } from "react-apollo";
 import { getArticlesQuery } from "../queries/queries";
-import { Spinner } from "react-bootstrap";
+import { Loader } from "semantic-ui-react";
 import { Statistic, Card, Icon } from "semantic-ui-react";
 
 class statistic extends Component {
@@ -14,9 +14,7 @@ class statistic extends Component {
     if (data.loading) {
       return (
         <div style={{ margin: "0 auto" }}>
-          <Spinner animation="border" variant="light" role="status">
-            <span className="sr-only">Loading...</span>
-          </Spinner>
+          <Loader inverted>Loading</Loader>
         </div>
       );
     } else {
