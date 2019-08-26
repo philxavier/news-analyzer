@@ -30,36 +30,6 @@ app.listen(PORT, err => {
 
 app.use(express.static("public"));
 
-app.get("/getArticles", err => {
-  // if (err) {
-  //   console.log("there was an error", err);
-  // } else {
-  //   createArrayOfLinks
-  //     .then(res => {
-  //       console.log("this is the response", res);
-  //     })
-  //     .catch(err => {
-  //       console.log("there was an error", err);
-  //     });
-  //   var newArticle = new articleModel({
-  //     url: articleLinks[i],
-  //     summary: res.summary,
-  //     sentiment: res.sentiment[0].sentiment,
-  //     tags: res.tags,
-  //     fullText: res.sentiment[0].document,
-  //     date: res.date,
-  //     title: res.articleTitle
-  //   newArticle.save((err, res) => {
-  //     if (err) console.log("there was an error saving record", err);
-  //     else console.log("saved record successfully", res);
-  //   });
-  // })
-  // .catch(err => {
-  //   console.log("there was an error", err);
-  // });
-  //}
-});
-
 app.get("/articles", (req, res) => {
   articleModel
     .find({})
