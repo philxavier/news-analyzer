@@ -6,27 +6,21 @@ import { Loader } from "semantic-ui-react";
 
 class Top3CardContainer extends Component {
   displayData() {
-    if (this.props.data.loading) {
-      return (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center"
-          }}
-        >
-          <Loader inverted>Loading</Loader>
-        </div>
-      );
-    } else {
-      //get url pass to the component and call get queries in the component;
-      return (
-        <div>
+    return (
+      <div>
+        {this.props.data.loading ? (
           <div>
-            <Top3Card data={this.props.data} />
+            <Loader active inline="centered" />
           </div>
-        </div>
-      );
-    }
+        ) : (
+          <div>
+            <div>
+              <Top3Card data={this.props.data} />
+            </div>
+          </div>
+        )}
+      </div>
+    );
   }
 
   render() {

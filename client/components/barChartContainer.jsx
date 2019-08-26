@@ -11,25 +11,21 @@ class barChartContainer extends Component {
   }
 
   displaydata() {
-    if (this.props.data.loading) {
-      return (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center"
-          }}
-        >
-          <Loader inverted>Loading</Loader>
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          {/* <div>working</div> */}
-          <BarChart data={this.props.data.tags} />
-        </div>
-      );
-    }
+    return (
+      <div>
+        {this.props.data.loading ? (
+          <div>
+            <Loader active inline="centered" />
+          </div>
+        ) : (
+          <div>
+            <div>
+              <BarChart data={this.props.data.tags} />
+            </div>
+          </div>
+        )}
+      </div>
+    );
   }
 
   render() {

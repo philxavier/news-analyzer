@@ -1,18 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Menu, Header, Loader, Input } from "semantic-ui-react";
 
 const MenuTop2 = props => {
   const [searchTerm, setSearchTerm] = useState("");
+
+  // useEffect(() => {
+  //   alert("oooooooooooooooooooooooooooooo");
+  // }, [props.loading]);
 
   const handleChange = e => {
     var url = e.target.value;
     setSearchTerm(url);
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
     let url = searchTerm;
-    console.log(url);
-    props.submit(url);
+    await props.submit(url);
     setSearchTerm("");
   };
 
@@ -34,7 +37,7 @@ const MenuTop2 = props => {
 
       <Menu.Item position="right">
         <Input
-          value={props.loading ? <Loader inverted /> : searchTerm}
+          value={searchTerm}
           action={{
             onClick: handleClick,
             content: "Add Article"

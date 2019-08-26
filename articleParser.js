@@ -83,7 +83,8 @@ async function getText2(url) {
   } catch (err) {
     console.log("there was an error in date", err);
   }
-  var date = FixDate(date);
+
+  date = FixDate(date);
 
   await browser.close();
 

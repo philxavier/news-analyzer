@@ -10,25 +10,17 @@ class MenuTopContainer extends Component {
     error: null
   };
 
-  submit = url => {
+  submit = async url => {
+    this.props.startSpinner();
     this.setState({ loading: true });
-
-    this.props
-      .addArticlesMutation({
-        variables: {
-          url: url
-        },
-        refetchQueries: [{ query: getArticlesQuery }]
-      })
-      .then(res => {
-        console.log(`Operation Successful!`);
-        console.log(res);
-        this.setState({ loading: false });
-      })
-      .catch(error => {
-        console.log(`Operation Not Successful!`);
-        this.setState({ loading: false, error: error.message });
-      });
+    await this.props.addArticlesMutation({
+      variables: {
+        url: url
+      },
+      refetchQueries: [{ query: getArticlesQuery }]
+    });
+    this.setState({ loading: false });
+    this.props.stopSpinner();
   };
 
   render() {

@@ -6,26 +6,21 @@ import { Loader } from "semantic-ui-react";
 
 class worst3CardContainer extends Component {
   displayData() {
-    if (this.props.data.loading) {
-      return (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center"
-          }}
-        >
-          <Loader inverted>Loading</Loader>
-        </div>
-      );
-    } else {
-      return (
-        <div>
+    return (
+      <div>
+        {this.props.data.loading ? (
           <div>
-            <Worst3Card data={this.props.data} />
+            <Loader active inline="centered" />
           </div>
-        </div>
-      );
-    }
+        ) : (
+          <div>
+            <div>
+              <Worst3Card data={this.props.data} />
+            </div>
+          </div>
+        )}
+      </div>
+    );
   }
 
   render() {

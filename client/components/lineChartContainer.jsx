@@ -9,20 +9,29 @@ class lineChartContainer extends Component {
     super(props);
   }
 
-  displaydata() {
-    if (this.props.data.loading) {
-      return (
-        <div style={{ margin: "0 auto" }}>
-          <Loader inverted>Loading</Loader>
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <LineChart data={this.props.data} />
-        </div>
-      );
+  componentDidUpdate(prevProps) {
+    if (prevProps !== this.props) {
+      this.forceUpdate();
     }
+  }
+
+  displaydata() {
+    console.log("props in linechart container", this.props);
+    return (
+      <div>
+        {this.props.data.loading ? (
+          <div>
+            <Loader active inline="centered" />
+          </div>
+        ) : (
+          <div>
+            <div>
+              <LineChart data={this.props.data} />
+            </div>
+          </div>
+        )}
+      </div>
+    );
   }
 
   render() {

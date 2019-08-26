@@ -7,7 +7,8 @@ var fixDate = date => {
   date = date.trim();
   date = date.split(" ");
   date[date.length - 2] = date[date.length - 2].split("");
-  date[date.length - 2].splice(1, 1);
+  var index = date[date.length - 2].indexOf(",");
+  date[date.length - 2].splice(index, 1);
   date[date.length - 2] = date[date.length - 2].join("");
   date = date.slice(-3).join(" ");
   var finalDate = Moment(new Date(date)).toISOString();

@@ -13,15 +13,10 @@ class Top3Card extends Component {
 
   componentDidMount() {
     var data = this.props.data;
-    console.log("data", data);
     var urls = [];
     data.top3.forEach(ele => {
       urls.push(ele.url);
     });
-
-    console.log(urls);
-
-    console.log("this is data.top3", data.top3);
 
     if (data.top3.length === 1) {
       this.setState({

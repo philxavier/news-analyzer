@@ -11,10 +11,11 @@ class statistic extends Component {
 
   displayData() {
     var data = this.props.data;
+
     if (data.loading) {
       return (
-        <div style={{ margin: "0 auto" }}>
-          <Loader inverted>Loading</Loader>
+        <div>
+          <Loader active inline="centered" />
         </div>
       );
     } else {

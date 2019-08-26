@@ -1,9 +1,10 @@
 var mongoose = require("mongoose");
-// process.env.MONGO_URI
+// process.env.MONGO_URI,
 
 mongoose
   .connect(
     "mongodb+srv://fsxl:Secreta1@cluster0-vmxgf.mongodb.net/test?retryWrites=true&w=majority",
+
     { dbName: "news-analyzer", useNewUrlParser: true }
   )
   .then(() => {
