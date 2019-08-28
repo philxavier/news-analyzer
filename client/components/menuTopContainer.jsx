@@ -17,7 +17,7 @@ class MenuTopContainer extends Component {
       variables: {
         url: url
       },
-      refetchQueries: [{ query: getArticlesQuery }]
+      refetchQueries: [{ query: await getArticlesQuery }]
     });
     this.setState({ loading: false });
     this.props.stopSpinner();

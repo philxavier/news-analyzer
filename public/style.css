@@ -69,3 +69,22 @@ body {
 .statistic-wrapper {
   margin: 0 auto;
 }
+
+.powered-by {
+  /* background: red; */
+  height: 20px;
+  padding-top: 1px;
+  font-style: italic;
+}
+
+.algorithmia {
+  /* background: green; */
+  width: 100px;
+  height: 20px;
+  margin-left: 3px;
+}
+
+.algorithmia-container {
+  /* background: yellow; */
+  background: red;
+}

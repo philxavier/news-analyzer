@@ -128,7 +128,7 @@ class lineChart extends Component {
   render() {
     return (
       <div className="chart" style={{ height: " 420px", width: "700px" }}>
-        <h2>Articles About Brazil x Time</h2>
+        <h2>Articles about Brazil x Dates</h2>
         <p>Numbers oscillate from -1 to 1</p>
         <Line
           data={this.state.chartData}

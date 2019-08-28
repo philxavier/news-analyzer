@@ -11,12 +11,16 @@ class lineChartContainer extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
-      this.forceUpdate();
+      console.log(
+        "props in linechart container component did update ",
+        this.props
+      );
     }
   }
 
   displaydata() {
-    console.log("props in linechart container", this.props);
+    console.log("props in linechart container displaydata ", this.props);
+
     return (
       <div>
         {this.props.data.loading ? (
