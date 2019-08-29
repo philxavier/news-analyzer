@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const PORT = 3002;
+const PORT = process.env.port | 3002;
 const db = require("../mongodb/index.js");
 const cors = require("cors");
 const graphqlHTTP = require("express-graphql");
