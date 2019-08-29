@@ -10,7 +10,7 @@ import Worst3CardContainer from "./worst3CardContainer";
 import MenuTopContainer from "./menuTopContainer";
 
 const client = new ApolloClient({
-  uri: "http://localhost:3002/graphql"
+  uri: "https://news-analyzer-325b2.firebaseapp.com"
 });
 
 export default class app extends Component {
