@@ -1,3 +1,4 @@
+const functions = require("firebase-functions");
 const express = require("express");
 const app = express();
 const PORT = process.env.port | 3002;
@@ -7,6 +8,7 @@ const graphqlHTTP = require("express-graphql");
 // let articleLinks = require("../articleParser.js").articleLinks;
 const articleModel = require("./models/article");
 var schema = require("./schema/schema.js");
+const { ApolloServer, gql } = require("apollo-server-express");
 
 app.use(cors());
 
@@ -19,24 +21,22 @@ app.use(
   })
 );
 
-app.listen(PORT, err => {
-  if (err) {
-    console.log("there was an error connecting to server", err);
-  }
-  console.log("CONNECTION TO SERVER SUCCESSFULL ON PORT", PORT);
-  // var test = createArrayOfLinks;
-  // console.log(test);
-});
-
 app.use(express.static("public"));
 
-app.get("/articles", (req, res) => {
-  articleModel
-    .find({})
-    .then(articles => {
-      res.send(articles);
-    })
-    .catch(err => {
-      console.log("there was an error retrieving the data", err);
-    });
-});
+function configureServer() {
+  // invoke express to create our server
+  const app = express();
+  //use the cors middleware
+  app.use(cors());
+  // Simple graphql schema
+
+  const server = new ApolloServer({
+    schema
+  });
+
+  server.applyMiddleware({ app });
+  // finally return the application
+  return app;
+}
+
+module.exports = configureServer;
