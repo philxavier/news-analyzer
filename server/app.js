@@ -1,5 +1,5 @@
 const express = require("express");
-const PORT = process.env.port | 3002;
+const PORT = process.env.PORT || 3002;
 const cors = require("cors");
 const graphqlHTTP = require("express-graphql");
 var schema = require("./schema/schema.js");
