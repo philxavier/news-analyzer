@@ -3,8 +3,9 @@ const PORT = process.env.PORT || 3002;
 const cors = require("cors");
 const graphqlHTTP = require("express-graphql");
 var schema = require("./schema/schema.js");
-const { ApolloServer, gql } = require("apollo-server-express");
+const { ApolloServer } = require("apollo-server-express");
 const db = require("../mongodb/index");
+const path = require("path");
 
 const app = express();
 
@@ -19,12 +20,14 @@ app.use(
   })
 );
 
-app.listen(PORT, err => {
-  if (err) {
-    console.log("there was an error", err);
-  } else {
-    console.log("connected do sever on Port", PORT);
-  }
+const server = new ApolloServer({ schema });
+
+// console.log(server);
+
+server.applyMiddleware({ app });
+
+app.listen({ port: PORT }, () => {
+  console.log(`server ready at http://localhost:3002${server.graphqlPath}`);
 });
 
 app.use(express.static("public"));
