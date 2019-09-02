@@ -23,11 +23,10 @@ app.use(
 const server = new ApolloServer({ schema });
 
 // console.log(server);
+app.use(express.static("public"));
 
 server.applyMiddleware({ app });
 
 app.listen({ port: PORT }, () => {
   console.log(`server ready at http://localhost:3002${server.graphqlPath}`);
 });
-
-app.use(express.static("public"));

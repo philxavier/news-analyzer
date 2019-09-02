@@ -10,7 +10,7 @@ import Worst3CardContainer from "./worst3CardContainer";
 import MenuTopContainer from "./menuTopContainer";
 
 const client = new ApolloClient({
-  uri: "/graphql"
+  uri: "http://localhost:3002/graphql"
 });
 
 export default class app extends Component {

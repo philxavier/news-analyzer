@@ -1,12 +1,12 @@
 const functions = require("firebase-functions");
-const server = require("../server/app");
-const admin = require("firebase-admin");
+// const server = require("../server/app");
+// const admin = require("firebase-admin");
 
-admin.initializeApp(functions.config().firebase);
+// admin.initializeApp(functions.config().firebase);
 
-const serverApp = server();
+// const serverApp = server();
 
-exports.api = functions.https.onRequest(serverApp);
+// exports.api = functions.https.onRequest(serverApp);
 
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
