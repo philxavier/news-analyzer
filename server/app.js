@@ -5,7 +5,6 @@ const graphqlHTTP = require("express-graphql");
 var schema = require("./schema/schema.js");
 const { ApolloServer } = require("apollo-server-express");
 const db = require("../mongodb/index");
-const path = require("path");
 
 const app = express();
 
@@ -27,6 +26,10 @@ app.use(express.static("public"));
 
 server.applyMiddleware({ app });
 
-app.listen({ port: PORT }, () => {
-  console.log(`server ready at http://localhost:3002${server.graphqlPath}`);
+app.listen({ port: PORT }, err => {
+  if (err) {
+    console.log("there was an error", err);
+  } else {
+    console.log(`server ready at http://localhost:3002${server.graphqlPath}`);
+  }
 });
