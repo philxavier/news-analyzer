@@ -112,6 +112,7 @@ const Mutation = new GraphQLObjectType({
         url: { type: new GraphQLNonNull(GraphQLString) }
       },
       resolve(parent, args) {
+        console.log("testing log");
         return buildArticle(args.url).then(res => {
           console.log("this is res", res);
           Article.create(res, err => {
