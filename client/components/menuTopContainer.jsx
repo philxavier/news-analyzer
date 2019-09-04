@@ -17,8 +17,8 @@ class MenuTopContainer extends Component {
       await this.props.addArticlesMutation({
         variables: {
           url: url
-        },
-        refetchQueries: [{ query: await getArticlesQuery }]
+        }
+        // refetchQueries: [{ query: await getArticlesQuery }]
       });
     } catch (err) {
       console.log("this is the error", err);
