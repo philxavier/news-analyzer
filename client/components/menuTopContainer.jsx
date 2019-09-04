@@ -13,12 +13,17 @@ class MenuTopContainer extends Component {
   submit = async url => {
     this.props.startSpinner();
     this.setState({ loading: true });
-    await this.props.addArticlesMutation({
-      variables: {
-        url: url
-      },
-      refetchQueries: [{ query: await getArticlesQuery }]
-    });
+    try {
+      await this.props.addArticlesMutation({
+        variables: {
+          url: url
+        },
+        refetchQueries: [{ query: await getArticlesQuery }]
+      });
+    } catch (err) {
+      console.log("this is the error", err);
+    }
+
     this.setState({ loading: false });
     this.props.stopSpinner();
   };
