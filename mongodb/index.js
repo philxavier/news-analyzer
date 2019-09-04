@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 // var credentials = require("./mongo.config");
-var credentials = require("./mongo.config") || process.env.MONGO_URI;
+var credentials = process.env.MONGO_URI;
 mongoose
   .connect(credentials, { dbName: "news-analyzer", useNewUrlParser: true })
   .then(() => {
