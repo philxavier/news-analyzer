@@ -24,6 +24,8 @@ class Top3CardContainer extends Component {
   }
 
   render() {
+    console.log("top3CardContainer ok");
+
     return this.displayData();
   }
 }

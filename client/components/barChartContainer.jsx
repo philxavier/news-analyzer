@@ -29,6 +29,7 @@ class barChartContainer extends Component {
   }
 
   render() {
+    console.log("barChartContainer ok");
     return <div>{this.displaydata()}</div>;
   }
 }

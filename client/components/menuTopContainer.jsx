@@ -24,7 +24,8 @@ class MenuTopContainer extends Component {
   };
 
   render() {
-    console.log("I go here=============================");
+    console.log("menuTopContainer ok");
+
     return (
       <div style={{ marginBottom: "2%" }}>
         <MenuTop2

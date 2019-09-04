@@ -1,6 +1,7 @@
 const puppeteer = require("puppeteer");
 const Algorithmia = require("algorithmia");
-// const AlgorithmiaConfig = require("./algorithmia.config");
+const AlgorithmiaConfig =
+  require("./algorithmia.config") || process.env.AlgorithmiaConfig;
 const articleModel = require("./server/models/article.js");
 const tagModel = require("./server/models/tag.js");
 const FixDate = require("./HelperFuncs").fixDate;
@@ -139,7 +140,7 @@ async function getText(url) {
 }
 
 async function Summarizer(textContent) {
-  algorithmiaAuthenticated = Algorithmia(process.env.AlgorithmiaConfig);
+  algorithmiaAuthenticated = Algorithmia(AlgorithmiaConfig);
   var summarizerAlgo = await algorithmiaAuthenticated.algo(
     "nlp/Summarizer/0.1.8?timeout=300"
   );
@@ -150,7 +151,7 @@ async function Summarizer(textContent) {
 
 async function getSentiment(textContent) {
   var input = { document: textContent };
-  algorithmiaAuthenticated = Algorithmia(process.env.AlgorithmiaConfig);
+  algorithmiaAuthenticated = Algorithmia(AlgorithmiaConfig);
   var sentiment = await algorithmiaAuthenticated.algo(
     "nlp/SentimentAnalysis/1.0.5?timeout=300"
   );
@@ -160,7 +161,7 @@ async function getSentiment(textContent) {
 }
 
 async function addTags(textContent) {
-  algorithmiaAuthenticated = Algorithmia(process.env.AlgorithmiaConfig);
+  algorithmiaAuthenticated = Algorithmia(AlgorithmiaConfig);
   var tagAlgo = await algorithmiaAuthenticated.algo(
     "nlp/AutoTag/1.0.1?timeout=300"
   ); // timeout is optional

@@ -30,6 +30,6 @@ app.listen({ port: PORT }, err => {
   if (err) {
     console.log("there was an error", err);
   } else {
-    console.log(`server ready at http://localhost:3002${server.graphqlPath}`);
+    console.log(`server ready ${server.graphqlPath}`);
   }
 });

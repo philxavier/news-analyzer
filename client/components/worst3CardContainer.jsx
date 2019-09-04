@@ -24,6 +24,8 @@ class worst3CardContainer extends Component {
   }
 
   render() {
+    console.log("worst3CardContainer ok");
+
     return this.displayData();
   }
 }
