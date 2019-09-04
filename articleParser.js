@@ -55,7 +55,7 @@ var articleLinks = [
 ];
 
 async function getText2(url) {
-  console.log("going within getText2========================");
+  console.log("going within getText2===================");
   const browser = await puppeteer.launch({
     args: ["--no-sandbox", "--disable-setuid-sandbox"]
   });
