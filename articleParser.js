@@ -55,6 +55,7 @@ var articleLinks = [
 ];
 
 async function getText2(url) {
+  console.log("this is the urllllllllllllllllllllllllllllllllllllllll");
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto(url);
