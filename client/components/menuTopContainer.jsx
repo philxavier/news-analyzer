@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { addArticlesMutation, getArticlesQuery } from "../queries/queries";
 import { graphql, Mutation } from "react-apollo";
 import { flowRight as compose } from "lodash";
-import MenuTop2 from "./menuTop2";
+import MenuTop from "./menuTop";
 
 class MenuTopContainer extends Component {
   state = {
@@ -29,11 +29,9 @@ class MenuTopContainer extends Component {
   };
 
   render() {
-    console.log("menuTopContainer ok");
-
     return (
-      <div style={{ marginBottom: "2%" }}>
-        <MenuTop2
+      <div style={{ marginBottom: "2%", width: "100%" }}>
+        <MenuTop
           submit={this.submit}
           loading={this.state.loading}
           error={this.state.error}

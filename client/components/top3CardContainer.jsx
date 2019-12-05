@@ -7,25 +7,17 @@ import { Loader } from "semantic-ui-react";
 class Top3CardContainer extends Component {
   displayData() {
     return (
-      <div>
+      <div style={{ width: "25%", display: "flex", flexDirection: "column" }}>
         {this.props.data.loading ? (
-          <div>
-            <Loader active inline="centered" />
-          </div>
+          <Loader active inline="centered" />
         ) : (
-          <div>
-            <div>
-              <Top3Card data={this.props.data} />
-            </div>
-          </div>
+          <Top3Card data={this.props.data} />
         )}
       </div>
     );
   }
 
   render() {
-    console.log("top3CardContainer ok");
-
     return this.displayData();
   }
 }

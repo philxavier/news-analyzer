@@ -12,7 +12,7 @@ class barChartContainer extends Component {
 
   displaydata() {
     return (
-      <div>
+      <div style={{ width: "35%", height: "100%" }}>
         {this.props.data.loading ? (
           <div>
             <Loader active inline="centered" />
@@ -29,8 +29,7 @@ class barChartContainer extends Component {
   }
 
   render() {
-    console.log("barChartContainer ok");
-    return <div>{this.displaydata()}</div>;
+    return this.displaydata();
   }
 }
 

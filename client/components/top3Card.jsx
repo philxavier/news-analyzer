@@ -52,49 +52,57 @@ class Top3Card extends Component {
 
   render() {
     return (
-      <Card>
-        <Card.Content>
-          <Card.Header>
-            Top 3 Positive Articles
-            <div style={{ float: "right" }}>
-              <Icon name="thumbs up outline" />
-            </div>
-          </Card.Header>
-        </Card.Content>
-        <Card.Content>
-          <Feed>
-            <Feed.Event>
-              <Feed.Label image="https://news-analyzer.s3-us-west-2.amazonaws.com/gold+medal.png" />
-              <Feed.Content>
-                <Feed.Date content={this.state.ratings[0]} />
-                <Feed.Summary>
-                  <a href={this.state.urls[0]}>{this.state.articleTitles[0]}</a>
-                </Feed.Summary>
-              </Feed.Content>
-            </Feed.Event>
+      <div style={{ flex: "1 " }}>
+        <Card style={{ height: "100%" }}>
+          <Card.Content>
+            <Card.Header>
+              Top 3 Positive Articles
+              <div style={{ float: "right" }}>
+                <Icon name="thumbs up outline" />
+              </div>
+            </Card.Header>
+          </Card.Content>
+          <Card.Content>
+            <Feed>
+              <Feed.Event>
+                <Feed.Label image="https://news-analyzer.s3-us-west-2.amazonaws.com/gold+medal.png" />
+                <Feed.Content>
+                  <Feed.Date content={this.state.ratings[0]} />
+                  <Feed.Summary>
+                    <a href={this.state.urls[0]}>
+                      {this.state.articleTitles[0]}
+                    </a>
+                  </Feed.Summary>
+                </Feed.Content>
+              </Feed.Event>
 
-            <Feed.Event>
-              <Feed.Label image="https://news-analyzer.s3-us-west-2.amazonaws.com/silver+medal.png" />
-              <Feed.Content>
-                <Feed.Date content={this.state.ratings[1]} />
-                <Feed.Summary>
-                  <a href={this.state.urls[1]}>{this.state.articleTitles[1]}</a>
-                </Feed.Summary>
-              </Feed.Content>
-            </Feed.Event>
+              <Feed.Event>
+                <Feed.Label image="https://news-analyzer.s3-us-west-2.amazonaws.com/silver+medal.png" />
+                <Feed.Content>
+                  <Feed.Date content={this.state.ratings[1]} />
+                  <Feed.Summary>
+                    <a href={this.state.urls[1]}>
+                      {this.state.articleTitles[1]}
+                    </a>
+                  </Feed.Summary>
+                </Feed.Content>
+              </Feed.Event>
 
-            <Feed.Event>
-              <Feed.Label image="https://news-analyzer.s3-us-west-2.amazonaws.com/bronze+medal.png" />
-              <Feed.Content>
-                <Feed.Date content={this.state.ratings[2]} />
-                <Feed.Summary>
-                  <a href={this.state.urls[2]}>{this.state.articleTitles[2]}</a>
-                </Feed.Summary>
-              </Feed.Content>
-            </Feed.Event>
-          </Feed>
-        </Card.Content>
-      </Card>
+              <Feed.Event>
+                <Feed.Label image="https://news-analyzer.s3-us-west-2.amazonaws.com/bronze+medal.png" />
+                <Feed.Content>
+                  <Feed.Date content={this.state.ratings[2]} />
+                  <Feed.Summary>
+                    <a href={this.state.urls[2]}>
+                      {this.state.articleTitles[2]}
+                    </a>
+                  </Feed.Summary>
+                </Feed.Content>
+              </Feed.Event>
+            </Feed>
+          </Card.Content>
+        </Card>
+      </div>
     );
   }
 }

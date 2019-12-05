@@ -88,3 +88,24 @@ body {
   /* background: yellow; */
   background: red;
 }
+
+.first-row {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.second-row {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 3em;
+  margin-bottom: 3em;
+}
+
+.main-container {
+  width: 90%;
+  margin: 0 auto;
+}

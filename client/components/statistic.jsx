@@ -28,23 +28,35 @@ class statistic extends Component {
       average = (average / data.articles.length).toFixed(2);
 
       return (
-        <Card>
-          <Card.Content textAlign="center">
-            <Card.Header>Average Evaluation</Card.Header>
-            <Card.Description>The average evaluation is...</Card.Description>
-            <div className="statistic-wrapper">
-              <Statistic color="teal">
-                <Statistic.Value>{average}</Statistic.Value>
-              </Statistic>
-            </div>
-          </Card.Content>
-          <Card.Content extra>
-            <a>
-              <Icon name="newspaper outline" />
-              {data.articles.length} Articles
-            </a>
-          </Card.Content>
-        </Card>
+        <div style={{ width: "25%", display: "flex", flexDirection: "column" }}>
+          <div
+            style={{ flex: "1", display: "flex", justifyContent: "flex-end" }}
+          >
+            <Card
+              style={{
+                height: "100%"
+              }}
+            >
+              <Card.Content textAlign="center">
+                <Card.Header>Average Evaluation</Card.Header>
+                <Card.Description>
+                  The average evaluation is...
+                </Card.Description>
+                <div className="statistic-wrapper">
+                  <Statistic color="teal">
+                    <Statistic.Value>{average}</Statistic.Value>
+                  </Statistic>
+                </div>
+              </Card.Content>
+              <Card.Content extra>
+                <a>
+                  <Icon name="newspaper outline" />
+                  {data.articles.length} Articles
+                </a>
+              </Card.Content>
+            </Card>
+          </div>
+        </div>
       );
     }
   }

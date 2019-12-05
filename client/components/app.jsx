@@ -48,65 +48,17 @@ export default class app extends Component {
           />
           <div>
             {!this.state.update ? (
-              <Grid centered>
-                <Grid.Row columns={2}>
-                  <Grid.Column
-                    style={
-                      {
-                        // display: "flex",
-                        // justifyContent: "center",
-                        // background: "purple"
-                      }
-                    }
-                    width={8}
-                  >
-                    <LineChartContainer />
-                  </Grid.Column>
-                  <Grid.Column
-                    style={{
-                      display: "flex",
-                      justifyContent: "flex-end"
-                    }}
-                    width={4}
-                  >
-                    <BarChartContainer />
-                  </Grid.Column>
-                </Grid.Row>
-                <Grid.Row columns={3}>
-                  <Grid.Column
-                    width={4}
-                    style={
-                      {
-                        // display: "flex",
-                        // justifyContent: "center",
-                        // background: "green"
-                      }
-                    }
-                  >
-                    <Top3CardContainer />
-                  </Grid.Column>
-                  <Grid.Column
-                    width={4}
-                    style={{
-                      display: "flex",
-                      justifyContent: "center"
-                      // background: "red"
-                    }}
-                  >
-                    <Worst3CardContainer />
-                  </Grid.Column>
-                  <Grid.Column
-                    width={4}
-                    style={{
-                      display: "flex",
-                      justifyContent: "flex-end"
-                      // background: "blue"
-                    }}
-                  >
-                    <Statistic />
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
+              <div className="main-container">
+                <div className="first-row">
+                  <LineChartContainer />
+                  <BarChartContainer />
+                </div>
+                <div className="second-row">
+                  <Top3CardContainer />
+                  <Worst3CardContainer />
+                  <Statistic />
+                </div>
+              </div>
             ) : (
               <div>
                 <Loader size="massive" active inline="centered">

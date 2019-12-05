@@ -33,7 +33,7 @@ export default class barChart extends Component {
         ]
       },
       options: {
-        maintainAspectRation: false,
+        maintainAspectRation: true,
         responsive: true,
         scales: {
           yAxes: [
@@ -73,7 +73,7 @@ export default class barChart extends Component {
 
   render() {
     return (
-      <div className="barChart" style={{ height: "420px", width: "356px" }}>
+      <div className="barChart" style={{ height: "100%", width: "100%" }}>
         <h2>Most Frequent Tags</h2>
         <p>what are the key words</p>
         <Bar

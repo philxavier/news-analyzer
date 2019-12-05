@@ -62,7 +62,7 @@ class lineChart extends Component {
             else e.target.style.cursor = "default";
           }
         },
-        maintainAspectRation: false,
+        maintainAspectRation: true,
         scales: {
           yAxes: [
             {
@@ -127,7 +127,7 @@ class lineChart extends Component {
 
   render() {
     return (
-      <div className="chart" style={{ height: " 420px", width: "700px" }}>
+      <div className="chart" style={{ height: " 100%", width: "100%" }}>
         <h2>Articles about Brazil x Dates</h2>
         <p>Numbers oscillate from -1 to 1</p>
         <Line
