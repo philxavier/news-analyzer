@@ -73,7 +73,7 @@ export default class barChart extends Component {
 
   render() {
     return (
-      <div className="barChart" style={{ height: "100%", width: "100%" }}>
+      <div className="barChart">
         <h2>Most Frequent Tags</h2>
         <p>what are the key words</p>
         <Bar

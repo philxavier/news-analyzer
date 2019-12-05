@@ -12,17 +12,11 @@ class barChartContainer extends Component {
 
   displaydata() {
     return (
-      <div style={{ width: "35%", height: "100%" }}>
+      <div className="barChart-container">
         {this.props.data.loading ? (
-          <div>
-            <Loader active inline="centered" />
-          </div>
+          <Loader active inline="centered" />
         ) : (
-          <div>
-            <div>
-              <BarChart data={this.props.data.tags} />
-            </div>
-          </div>
+          <BarChart data={this.props.data.tags} />
         )}
       </div>
     );

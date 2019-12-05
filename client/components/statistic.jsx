@@ -28,13 +28,14 @@ class statistic extends Component {
       average = (average / data.articles.length).toFixed(2);
 
       return (
-        <div style={{ width: "25%", display: "flex", flexDirection: "column" }}>
+        <div className="statistics-container">
           <div
             style={{ flex: "1", display: "flex", justifyContent: "flex-end" }}
           >
             <Card
               style={{
-                height: "100%"
+                height: "100%",
+                width: "100%"
               }}
             >
               <Card.Content textAlign="center">

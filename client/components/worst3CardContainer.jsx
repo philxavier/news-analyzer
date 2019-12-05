@@ -7,7 +7,7 @@ import { Loader } from "semantic-ui-react";
 class worst3CardContainer extends Component {
   displayData() {
     return (
-      <div style={{ width: "25%", display: "flex", flexDirection: "column" }}>
+      <div className="worst3Card-container">
         {this.props.data.loading ? (
           <div>
             <Loader active inline="centered" />

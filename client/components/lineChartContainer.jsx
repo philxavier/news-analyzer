@@ -16,15 +16,11 @@ class lineChartContainer extends Component {
 
   displaydata() {
     return (
-      <div style={{ width: "60%" }}>
+      <div className="lineChart-container">
         {this.props.data.loading ? (
-          <div>
-            <Loader active inline="centered" />
-          </div>
+          <Loader active inline="centered" />
         ) : (
-          <div style={{ height: "100%" }}>
-            <LineChart data={this.props.data} />
-          </div>
+          <LineChart data={this.props.data} />
         )}
       </div>
     );

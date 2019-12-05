@@ -107,5 +107,150 @@ body {
 
 .main-container {
   width: 90%;
+  height: 100%;
   margin: 0 auto;
+}
+
+.barChart {
+  height: 100%;
+  width: 100%;
+}
+
+.barChart-container {
+  width: 35%;
+  height: 100%;
+}
+
+.lineChart-container {
+  width: 60%;
+}
+
+.top3Card-container {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+}
+
+.worst3Card-container {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+}
+
+.statistics-container {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+}
+
+.title-container {
+  display: flex;
+  align-items: center;
+  margin-left: 1em;
+  width: 30%;
+}
+
+.menu-wrapper {
+  display: flex;
+  width: 100%;
+}
+
+.input-bar {
+  width: 30%;
+}
+
+@media only screen and (max-width: 952px) {
+  .first-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    /* text-align: center; */
+  }
+
+  .second-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: "2em";
+    /* text-align: center; */
+  }
+
+  .barChart-container {
+    margin-top: 2em;
+    width: 55%;
+  }
+
+  .lineChart-container {
+    width: 80%;
+  }
+
+  .top3Card-container {
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .worst3Card-container {
+    margin-top: 2em;
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .statistics-container {
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 2em;
+  }
+}
+
+@media only screen and (max-width: 825px) {
+  .title-container {
+    display: flex;
+    align-items: center;
+    margin-left: 1em;
+    width: 30%;
+  }
+
+  .title-container h2 {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .input-bar {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .barChart-container {
+    margin-top: 2em;
+    width: 95%;
+  }
+
+  .lineChart-container {
+    width: 95%;
+  }
+
+  .top3Card-container {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .worst3Card-container {
+    margin-top: 2em;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .statistics-container {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 2em;
+  }
 }
