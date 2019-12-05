@@ -51,7 +51,7 @@ class worst3Card extends Component {
   render() {
     return (
       <div style={{ flex: "1 " }}>
-        <Card>
+        <Card style={{ height: "100%", width: "100%" }}>
           <Card.Content>
             <Card.Header>
               Top 3 Negative Articles
