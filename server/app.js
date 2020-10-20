@@ -8,8 +8,7 @@ const schema = require("./schema/schema.js");
 const ApolloServer = require("apollo-server-express").ApolloServer;
 const app = express();
 const Axios = require("axios");
-const GoogleTrends = require("google-trends-api");
-const request = require("request");
+
 app.use(cors());
 
 app.use(
