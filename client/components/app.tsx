@@ -47,7 +47,7 @@ export default class app extends Component {
           />
           <div>
             {!this.state.update ? (
-              <Box background="red" width="90%" height="100%" margin="0 auto">
+              <Box width="90%" height="100%" margin="0 auto">
                 <Row
                   display="flex"
                   justifyContent="space-between"
@@ -76,9 +76,7 @@ export default class app extends Component {
                   margin="0 auto"
                   marginTop="3em"
                   marginBottom="3em"
-                >
-                  <GoogleTrendingSearches />
-                </Row>
+                ></Row>
               </Box>
             ) : (
               <div>
