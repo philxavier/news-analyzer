@@ -1,7 +1,7 @@
 const puppeteer = require("puppeteer");
 const Algorithmia = require("algorithmia");
 const AlgorithmiaConfig =
-  require("./algorithmia.config") || process.env.AlgorithmiaConfig;
+  require("./algorithmia.config.js") || process.env.AlgorithmiaConfig;
 const articleModel = require("./server/models/article.js");
 const tagModel = require("./server/models/tag.js");
 const FixDate = require("./HelperFuncs").fixDate;
