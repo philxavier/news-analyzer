@@ -1,35 +1,31 @@
-import React, { Component } from "react";
+import React from "react";
 import { Line } from "react-chartjs-2";
 
-class lineChart extends Component {
-  constructor(props) {
-    super(props);
-    this.getURlandRedirect = this.getURlandRedirect.bind(this);
-    this.state = {
-      urls: [],
-      chartData: null,
-      options: {},
-      tooltips: {}
-    };
-  }
+const lineChart = (props) => {
+  const [chartConfig, setChartConfigs] = React.useState({
+    urls: [],
+    chartData: null,
+    options: {},
+    tooltips: {},
+  });
 
-  componentDidMount() {
+  React.useEffect(() => {
     var dates = [];
     var ratings = [];
     var titles = [];
     var urls = [];
     var summaries = [];
-    var data = this.props.data.articles;
-    data
-      .map(ele => {
+    var manipulatedData = props.data.articles.slice();
+    manipulatedData
+      .map((ele) => {
         return Object.assign({}, ele, {
-          date: ele.date.slice(0, 10)
+          date: ele.date.slice(0, 10),
         });
       })
       .sort((a, b) => {
         return new Date(a.date) - new Date(b.date);
       })
-      .map(ele => {
+      .map((ele) => {
         dates.push(ele.date);
         ratings.push(ele.finalSentiment);
         titles.push(ele.articleTitle);
@@ -38,7 +34,8 @@ class lineChart extends Component {
         return ele;
       });
 
-    this.setState({
+    setChartConfigs({
+      ...chartConfig,
       urls: urls,
       chartData: {
         labels: dates,
@@ -50,17 +47,17 @@ class lineChart extends Component {
             borderColor: "teal",
             data: ratings,
             articleTitles: titles,
-            summaries: summaries
-          }
-        ]
+            summaries: summaries,
+          },
+        ],
       },
       options: {
         hover: {
-          onHover: function(e) {
+          onHover: function (e) {
             var point = this.getElementAtEvent(e);
             if (point.length) e.target.style.cursor = "pointer";
             else e.target.style.cursor = "default";
-          }
+          },
         },
         maintainAspectRation: true,
         scales: {
@@ -68,41 +65,41 @@ class lineChart extends Component {
             {
               ticks: {
                 beginAtZero: true,
-                fontColor: "lightgray"
+                fontColor: "lightgray",
               },
               gridLines: {
                 borderDash: [3, 3],
                 display: true,
-                color: "lightgray"
-              }
-            }
+                color: "lightgray",
+              },
+            },
           ],
           xAxes: [
             {
               ticks: {
-                fontColor: "lightgray"
+                fontColor: "lightgray",
               },
               gridLines: {
                 display: false,
-                color: "teal"
-              }
-            }
-          ]
+                color: "teal",
+              },
+            },
+          ],
         },
         tooltips: {
           callbacks: {
-            title: function(tooltipItem, data) {
+            title: function (tooltipItem, manipulatedData) {
               var index = tooltipItem[0].index;
-              var info = data.datasets[0].articleTitles[index];
+              var info = manipulatedData.datasets[0].articleTitles[index];
               return info;
             },
 
-            label: function(tooltipItem, data) {
+            label: function (tooltipItem, manipulatedData) {
               return tooltipItem.value + " / " + tooltipItem.label;
             },
-            afterLabel: function(tooltipItem, data) {
+            afterLabel: function (tooltipItem, manipulatedData) {
               var index = tooltipItem.index;
-              var info = data.datasets[0].summaries[index];
+              var info = manipulatedData.datasets[0].summaries[index];
               info = info.split(" ");
               var hold = [];
               while (info.length) {
@@ -110,36 +107,34 @@ class lineChart extends Component {
                 hold.push(words.join(" "));
               }
               return hold;
-            }
-          }
-        }
-      }
+            },
+          },
+        },
+      },
     });
-  }
+  }, []);
 
-  getURlandRedirect(e) {
+  const getURlandRedirect = (e) => {
     if (e) {
       var index = e[0]._index;
-      var url = this.state.urls[index];
+      var url = chartConfig.urls[index];
       window.open(url, "_blank");
     }
-  }
+  };
 
-  render() {
-    return (
-      <div className="chart" style={{ height: " 100%", width: "100%" }}>
-        <h2>Articles about Brazil x Dates</h2>
-        <p>Numbers oscillate from -1 to 1</p>
-        <Line
-          data={this.state.chartData}
-          getElementAtEvent={e => {
-            this.getURlandRedirect(e);
-          }}
-          options={this.state.options}
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="chart" style={{ height: " 100%", width: "100%" }}>
+      <h2>Articles about Brazil x Dates</h2>
+      <p>Numbers oscillate from -1 to 1</p>
+      <Line
+        data={chartConfig.chartData}
+        getElementAtEvent={(e) => {
+          getURlandRedirect(e);
+        }}
+        options={chartConfig.options}
+      />
+    </div>
+  );
+};
 
 export default lineChart;

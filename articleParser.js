@@ -1,12 +1,13 @@
 const puppeteer = require("puppeteer");
 const Algorithmia = require("algorithmia");
-// const AlgorithmiaConfig =
-//   require("./algorithmia.config") || process.env.AlgorithmiaConfig;
+const AlgorithmiaConfig =
+  require("./algorithmia.config") || process.env.AlgorithmiaConfig;
 const articleModel = require("./server/models/article.js");
 const tagModel = require("./server/models/tag.js");
 const FixDate = require("./HelperFuncs").fixDate;
+const cheerio = require("cheerio");
 
-var articleLinks2 = [
+var articleLinks = [
   "https://www.cnn.com/2019/08/06/us/brazilian-inmate-death-trnd/index.html",
   "https://www.cnn.com/2019/07/08/football/copa-america-final-brazil-peru-spt-intl/index.html",
   "https://www.cnn.com/2013/10/22/world/international-space-station-fast-facts/index.html",
@@ -20,51 +21,20 @@ var articleLinks2 = [
   "https://www.cnn.com/2019/05/27/americas/brazil-prison-deaths-intl/index.html",
   "https://www.cnn.com/2013/08/05/world/americas/luiz-inacio-lula-da-silva-fast-facts/index.html",
   "https://www.cnn.com/2019/05/01/motorsport/ayrton-senna-25-year-anniversary-chris-smith-photography-formula-one-motorsport-spt-intl/index.html",
-  "https://www.cnn.com/2019/04/25/health/male-infertility-food-drayer/index.html"
+  "https://www.cnn.com/2019/04/25/health/male-infertility-food-drayer/index.html",
 ];
 
-var articleLinks3 = [
-  "https://www.cnn.com/2019/07/17/us/peru-former-president-arrested-us/index.html",
-  "https://www.cnn.com/2019/07/12/americas/jair-bolsonaro-son-us-ambassador-intl/index.html",
-  "https://www.cnn.com/2019/07/09/middleeast/brazil-israeli-embassy-scli-intl/index.html",
-  "https://www.cnn.com/2019/07/08/football/copa-america-final-brazil-peru-spt-intl/index.html",
-  "https://www.cnn.com/travel/article/brazil-lifts-visa-requirement/index.html",
-  "https://www.cnn.com/travel/gallery/beautiful-brazil/index.htmlhttps://www.cnn.com/2019/06/08/football/neymar-rape-allegations-lawyer-spt-intl/index.html",
-  "https://www.cnn.com/style/article/brazil-fashion-diversity/index.html"
-];
-
-var articleLinks = [
-  "https://www.nytimes.com/2019/08/01/sports/mario-gonzalez-dead.html?searchResultPosition=1",
-  "https://www.nytimes.com/2019/07/29/world/americas/brazil-prison-dead.html?searchResultPosition=2"
-  // "https://www.nytimes.com/2019/08/02/world/americas/bolsonaro-amazon-deforestation-galvao.html?searchResultPosition=3",
-  // "https://www.nytimes.com/2019/08/06/world/americas/brazil-prison-escape-dead.html?searchResultPosition=4",
-  // "https://www.nytimes.com/2019/07/31/world/americas/4-more-inmates-die-in-brazil-following-deadly-prison-clash.html?searchResultPosition=5",
-  // "https://www.nytimes.com/2019/07/25/world/americas/bolsonaro-brazil-phone-hack-corruption.html?searchResultPosition=6",
-  // "https://www.nytimes.com/2019/07/27/world/americas/brazil-miners-amapa.html?searchResultPosition=7",
-  // "https://www.nytimes.com/2019/07/29/science/math-weaving-bamboo.html?searchResultPosition=8",
-  // "https://www.nytimes.com/2019/07/20/world/americas/brazil-bolsonaro-greenwald.html?searchResultPosition=9",
-  // "https://www.nytimes.com/2019/07/28/world/americas/brazil-deforestation-amazon-bolsonaro.html?searchResultPosition=10"
-  //   "https://www.nytimes.com/2019/07/22/opinion/maria-lourdes-afiuni-chomsky-venezuela.html?searchResultPosition=19",
-  //   "https://www.nytimes.com/2019/07/04/travel/brazil-eases-visa-requirements-for-us-travelers.html?searchResultPosition=20",
-  //   "https://www.nytimes.com/2019/07/06/arts/music/joao-gilberto-dead-bossa-nova.html?searchResultPosition=22",
-  //   "https://www.nytimes.com/2019/06/26/world/americas/bolsonaro-staff-cocaine-bust.html?searchResultPosition=23",
-  //   "https://www.nytimes.com/2019/07/05/sports/2016-olympics-rio-bribery.html?searchResultPosition=25",
-  //   "https://www.nytimes.com/2019/07/05/opinion/lula-moro-brazil.html?searchResultPosition=26",
-  //   "https://www.nytimes.com/2019/06/23/sports/soccer/france-brazil-world-cup.html?searchResultPosition=29",
-  //   "https://www.nytimes.com/2019/06/18/movies/edge-of-democracy-review.html?searchResultPosition=31"
-];
-
-async function getText2(url) {
-  console.log("going within getText2===================");
+async function getTextFinal(url) {
+  console.log("inside getTextFinal getting text");
   const browser = await puppeteer.launch({
-    args: ["--no-sandbox", "--disable-setuid-sandbox"]
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
   const page = await browser.newPage();
   await page.goto(url);
 
   try {
     var textContent = await page.evaluate(
-      () => document.querySelector(".pg-rail-tall__body").innerText
+      () => document.querySelector("#body-text > div.l-container ").textContent
     );
   } catch (err) {
     console.log("There is an error in text content", err);
@@ -95,66 +65,29 @@ async function getText2(url) {
   return {
     textContent,
     articleTitle,
-    date
-  };
-}
-
-async function getText(url) {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  await page.goto(url);
-
-  try {
-    var textContent = await page.evaluate(
-      () => document.querySelector(".meteredContent").textContent
-    );
-  } catch (err) {
-    console.log("There is an error in text content", err);
-  }
-
-  try {
-    var articleTitle = await page.evaluate(
-      () => document.querySelector(".balancedHeadline").textContent
-    );
-  } catch (err) {
-    console.log("there was an error in article tittle", err);
-  }
-
-  try {
-    var date = await page.evaluate(
-      () => document.querySelector(".css-rs1psd").textContent
-    );
-  } catch (err) {
-    console.log("there was an error in date", err);
-  }
-
-  // console.log(
-  //   "this is text content===============================",
-  //   textContent
-  // );
-
-  await browser.close();
-
-  return {
-    textContent,
-    articleTitle,
-    date
+    date,
   };
 }
 
 async function Summarizer(textContent) {
-  algorithmiaAuthenticated = Algorithmia(process.env.AlgorithmiaConfig);
-  var summarizerAlgo = await algorithmiaAuthenticated.algo(
-    "nlp/Summarizer/0.1.8?timeout=300"
-  );
+  algorithmiaAuthenticated = Algorithmia(AlgorithmiaConfig);
+  try {
+    var summarizerAlgo = await algorithmiaAuthenticated.algo(
+      "nlp/Summarizer/0.1.8?timeout=300"
+    );
+  } catch (err) {
+    console.log("this is summary error", err);
+  }
+
   var summarizerPipe = await summarizerAlgo.pipe(textContent);
   var content = await summarizerPipe.get();
+
   return content;
 }
 
 async function getSentiment(textContent) {
   var input = { document: textContent };
-  algorithmiaAuthenticated = Algorithmia(process.env.AlgorithmiaConfig);
+  algorithmiaAuthenticated = Algorithmia(AlgorithmiaConfig);
   var sentiment = await algorithmiaAuthenticated.algo(
     "nlp/SentimentAnalysis/1.0.5?timeout=300"
   );
@@ -164,7 +97,7 @@ async function getSentiment(textContent) {
 }
 
 async function addTags(textContent) {
-  algorithmiaAuthenticated = Algorithmia(process.env.AlgorithmiaConfig);
+  algorithmiaAuthenticated = Algorithmia(AlgorithmiaConfig);
   var tagAlgo = await algorithmiaAuthenticated.algo(
     "nlp/AutoTag/1.0.1?timeout=300"
   ); // timeout is optional
@@ -173,9 +106,9 @@ async function addTags(textContent) {
   return finalTags;
 }
 
-const buildArticle = async url => {
+const buildArticle = async (url) => {
   try {
-    var articleInfo = await getText2(url);
+    var articleInfo = await getTextFinal(url);
   } catch (err) {
     console.log("there was an error in info", err);
   }
@@ -201,8 +134,6 @@ const buildArticle = async url => {
     console.log("there was an error in tags", err);
   }
 
-  console.log();
-
   let { articleTitle, date } = articleInfo;
   var obj = {
     url,
@@ -211,31 +142,25 @@ const buildArticle = async url => {
     fullText,
     tags,
     articleTitle,
-    date
+    date,
   };
   return obj;
 };
 
 var test = async () => {
   var container = [];
-  for (let i = 0; i < articleLinks2.length; i++) {
-    const element = await buildArticle(articleLinks2[i]);
-    element.url = articleLinks2[i];
+  for (let i = 0; i < articleLinks.length; i++) {
+    const element = await buildArticle(articleLinks[i]);
+    element.url = articleLinks[i];
     console.log(element);
     container.push(element);
   }
   return container;
 };
 
-// getText2(
-//   "https://www.cnn.com/2019/05/01/motorsport/ayrton-senna-25-year-anniversary-chris-smith-photography-formula-one-motorsport-spt-intl/index.html"
-// ).then(res => {
-//   console.log("this is res", res);
-// });
-
 var saveToDatabase = () => {
   test()
-    .then(res => {
+    .then((res) => {
       articleModel.insertMany(res, (err, resp) => {
         if (err) {
           console.log("erro inserting into db", err);
@@ -269,16 +194,23 @@ var saveToDatabase = () => {
         );
       }
     })
-    .catch(err => {
+    .catch((err) => {
       console.log("there was an error", err);
     });
 };
 
-// saveToDatabase();
+// const buildStuff = async () => {
+//   const result = await buildArticle(
+//     "https://www.cnn.com/2020/07/31/americas/brazil-bolsonaro-mold-lungs-intl/index.html"
+//   );
+//   console.log("this is result", result);
+// };
+
+// buildStuff();
+
+// return;
 
 module.exports = {
-  // createArrayOfLinks,
   buildArticle,
-  getText2,
-  articleLinks2
+  getTextFinal,
 };

@@ -4,33 +4,20 @@ import LineChart from "./lineChart";
 import { Loader } from "semantic-ui-react";
 import { getArticlesQuery } from "../queries/queries";
 
-class lineChartContainer extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  // componentDidUpdate(prevProps) {
-  //   if (prevProps !== this.props) {
-  //   }
-  // }
-
-  displaydata() {
+const lineChartContainer = (props) => {
+  const displaydata = () => {
     return (
       <div className="lineChart-container">
-        {this.props.data.loading ? (
+        {props.data.loading ? (
           <Loader active inline="centered" />
         ) : (
-          <LineChart data={this.props.data} />
+          <LineChart data={props.data} />
         )}
       </div>
     );
-  }
+  };
 
-  render() {
-    console.log("lineChartContainer ok");
-
-    return this.displaydata();
-  }
-}
+  return displaydata();
+};
 
 export default graphql(getArticlesQuery)(lineChartContainer);

@@ -1,45 +1,41 @@
-import React, { Component } from "react";
+import React from "react";
 import { addArticlesMutation, getArticlesQuery } from "../queries/queries";
-import { graphql, Mutation } from "react-apollo";
+import { graphql } from "react-apollo";
 import { flowRight as compose } from "lodash";
 import MenuTop from "./menuTop";
 
-class MenuTopContainer extends Component {
-  state = {
-    loading: false,
-    error: null
-  };
+const MenuTopContainer = ({
+  stopSpinner,
+  startSpinner,
+  addArticlesMutation,
+}) => {
+  const [loading, setIsloading] = React.useState(false);
+  const [error, setError] = React.useState(null);
 
-  submit = async url => {
-    this.props.startSpinner();
-    this.setState({ loading: true });
+  const submit = async (url) => {
+    startSpinner();
+    setIsloading(true);
     try {
-      await this.props.addArticlesMutation({
+      await addArticlesMutation({
         variables: {
-          url: url
-        }
+          url: url,
+        },
         // refetchQueries: [{ query: await getArticlesQuery }]
       });
     } catch (err) {
       console.log("this is the error", err);
     }
 
-    this.setState({ loading: false });
-    this.props.stopSpinner();
+    setIsloading(false);
+    stopSpinner();
   };
 
-  render() {
-    return (
-      <div style={{ marginBottom: "2%", width: "100%" }}>
-        <MenuTop
-          submit={this.submit}
-          loading={this.state.loading}
-          error={this.state.error}
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <div style={{ marginBottom: "2%", width: "100%" }}>
+      <MenuTop submit={submit} loading={loading} error={error} />
+    </div>
+  );
+};
 
 export default compose(
   graphql(getArticlesQuery, { name: "getArticlesQuery" }),

@@ -2,7 +2,7 @@ var graphql = require("graphql");
 const buildArticle = require("../../articleParser").buildArticle;
 const Article = require("../models/article.js");
 const Tags = require("../models/tag.js");
-
+const Axios = require("axios");
 const { GraphQLDate } = require("graphql-iso-date");
 
 const {
@@ -11,7 +11,8 @@ const {
   GraphQLSchema,
   GraphQLID,
   GraphQLList,
-  GraphQLNonNull
+  GraphQLNonNull,
+  GraphQLBoolean,
 } = graphql;
 
 const_ = require("lodash");
@@ -32,9 +33,22 @@ const ArticleType = new GraphQLObjectType({
       type: new GraphQLList(TagType),
       resolve(parent, args) {
         return Tags.find({ urls: parent.url });
-      }
-    }
-  })
+      },
+    },
+  }),
+});
+
+const TrendingType = new GraphQLObjectType({
+  name: "Trending",
+  fields: () => ({
+    featuredStoryIds: { type: new GraphQLList(GraphQLString) },
+    trendingStoryIds: { type: GraphQLString }, // 300 trending story IDs
+    storySummaries: { type: GraphQLString },
+    featuredStories: { type: GraphQLString }, // Empty
+    date: { type: GraphQLString },
+    hideAllImages: { type: GraphQLString },
+    trendingStories: { type: GraphQLString },
+  }),
 });
 
 const TagType = new GraphQLObjectType({
@@ -47,9 +61,9 @@ const TagType = new GraphQLObjectType({
       type: new GraphQLList(ArticleType),
       resolve(parent, args) {
         return Article.find({ url: { $in: parent.urls } });
-      }
-    }
-  })
+      },
+    },
+  }),
 });
 
 const RootQuery = new GraphQLObjectType({
@@ -59,7 +73,7 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(ArticleType),
       resolve(parent, args) {
         return Article.find({});
-      }
+      },
     },
     tags: {
       type: new GraphQLList(TagType),
@@ -70,37 +84,47 @@ const RootQuery = new GraphQLObjectType({
             $project: {
               name: 1,
               urls: 1,
-              length: { $size: "$urls" }
-            }
+              length: { $size: "$urls" },
+            },
           },
           { $sort: { length: -1 } },
-          { $limit: 5 }
+          { $limit: 5 },
         ])
-          .then(res => {
+          .then((res) => {
             return res;
           })
-          .catch(err => {
+          .catch((err) => {
             console.log("there was an error fetching data", err);
           });
-      }
+      },
     },
     top3: {
       type: new GraphQLList(ArticleType),
       resolve(parent, args) {
-        return Article.find({})
-          .sort({ finalSentiment: -1 })
-          .limit(3);
-      }
+        return Article.find({}).sort({ finalSentiment: -1 }).limit(3);
+      },
     },
     worst3: {
       type: new GraphQLList(ArticleType),
       resolve(parent, args) {
-        return Article.find({})
-          .sort({ finalSentiment: 1 })
-          .limit(3);
-      }
-    }
-  }
+        return Article.find({}).sort({ finalSentiment: 1 }).limit(3);
+      },
+    },
+    trending: {
+      type: new GraphQLList(TrendingType),
+      resolve(parent, args) {
+        const getJoke = async () => {
+          const resp = await Axios.get(
+            "https://api.chucknorris.io/jokes/random"
+          );
+          console.log(resp);
+          return resp;
+        };
+
+        return getJoke();
+      },
+    },
+  },
 });
 
 const Mutation = new GraphQLObjectType({
@@ -109,11 +133,12 @@ const Mutation = new GraphQLObjectType({
     addArticle: {
       type: ArticleType,
       args: {
-        url: { type: new GraphQLNonNull(GraphQLString) }
+        url: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve(parent, args) {
-        return buildArticle(args.url).then(res => {
-          Article.create(res, err => {
+        return buildArticle(args.url).then((res) => {
+          console.log("this is res-----------------------", res);
+          Article.create(res, (err) => {
             if (err) {
               console.log("there was an error in articles", err);
             } else {
@@ -139,14 +164,14 @@ const Mutation = new GraphQLObjectType({
             }
           });
         });
-      }
-    }
-  }
+      },
+    },
+  },
 });
 
 var schema = new GraphQLSchema({
   query: RootQuery,
-  mutation: Mutation
+  mutation: Mutation,
 });
 
 module.exports = schema;

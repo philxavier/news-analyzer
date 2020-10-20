@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Menu, Header, Input } from "semantic-ui-react";
+import { Menu, Input } from "semantic-ui-react";
 
-const MenuTop2 = props => {
+const MenuTop = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     var url = e.target.value;
     setSearchTerm(url);
   };
@@ -34,10 +34,10 @@ const MenuTop2 = props => {
             value={searchTerm}
             action={{
               onClick: handleClick,
-              content: "Add Article"
+              content: "Add Article",
             }}
             placeholder="insert URL"
-            onChange={e => {
+            onChange={(e) => {
               handleChange(e);
             }}
           />
@@ -47,4 +47,4 @@ const MenuTop2 = props => {
   );
 };
 
-export default MenuTop2;
+export default MenuTop;
