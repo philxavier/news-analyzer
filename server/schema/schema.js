@@ -1,5 +1,5 @@
 var graphql = require("graphql");
-const buildArticle = require("../../articleParser").buildArticle;
+const buildArticle = require("../../articleParser.js").buildArticle;
 const Article = require("../models/article.js");
 const Tags = require("../models/tag.js");
 const Axios = require("axios");
@@ -12,7 +12,6 @@ const {
   GraphQLID,
   GraphQLList,
   GraphQLNonNull,
-  GraphQLBoolean,
 } = graphql;
 
 const_ = require("lodash");
