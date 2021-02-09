@@ -4,7 +4,6 @@ const AlgorithmiaConfig = process.env.AlgorithmiaConfig;
 const articleModel = require("./server/models/article.js");
 const tagModel = require("./server/models/tag.js");
 const FixDate = require("./HelperFuncs").fixDate;
-const cheerio = require("cheerio");
 
 var articleLinks = [
   "https://www.cnn.com/2019/08/06/us/brazilian-inmate-death-trnd/index.html",
