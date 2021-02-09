@@ -1,7 +1,7 @@
 "use strict";
 exports.__esModule = true;
 const express = require("express");
-const PORT = process.env.PORT || 3004;
+const PORT = process.env.PORT;
 const cors = require("cors");
 const graphqlHTTP = require("express-graphql");
 const schema = require("./schema/schema.js");
